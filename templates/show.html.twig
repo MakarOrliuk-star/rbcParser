@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{{news.title}}{% endblock %}</title>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}</head>
+<body>
+{% block body %}
+    <div id="mainContainer">
+        <div id="newsTitle">
+            {{ news.title }}
+        </div>
+        <div id="timestamp">
+            {{ news.timestamp|date("d.m.Y H:i") }}
+            GMT+2
+        </div>
+        <div id="newsImage">
+            <img src="{{ news.imageUrl }}" alt=""/>
+        </div>
+        <div id="newsImageTitle">
+            {{ news.imageTitle }}
+        </div>
+        <div id="newsContent">
+            {{ news.content }}
+        </div>
+        <div class="newsButtonLink">
+            <a href="{{ news.originalUrl }}">Источник</a>
+        </div>
+        <div class="newsButtonLink">
+            <a href="/">На главную</a>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}{% endblock %}
+</body>
+</html>

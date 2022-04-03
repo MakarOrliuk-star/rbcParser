@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}RbcNews{% endblock %}</title>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}</head>
+<body>
+{% block body %}
+    <div id="mainContainer">
+        <div id="newsContainer">
+            {% for newsItem in news %}
+                <div class="newsWrapper">
+                    <div class="newsTitle">
+                        {{ newsItem.title }}
+                    </div>
+                    <div class="timestamp">
+                        {{ newsItem.timestamp|date("d.m.Y H:i") }}
+                        GMT+2
+                    </div>
+                    <div class="newsItem grid1to3">
+                        <div class="newsThumb">
+                            {% if newsItem.imageUrl %}
+                                <img src="{{ newsItem.imageUrl }}"/>
+                            {% else %}
+                                <img src="/images/no_photo.jpg"/>
+                            {% endif %}
+                        </div>
+                        <div class="newsPreview">
+                            {% if newsItem.content|length > 200 %}
+                                {{ newsItem.content|slice(0, 200) ~ '...' }}
+                            {% else %}
+                                {{ newsItem.content }}
+                            {% endif %}
+                        </div>
+                        <div class="newsSource newsButtonLink">
+                            <a href="{{ newsItem.originalUrl }}">Источник</a>
+                        </div>
+                        <div class="newsFull newsButtonLink">
+                            <a href="/news/show/{{ newsItem.id }}">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="newsButtonLink">
+            <a href="/renew">Обновить список</a>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}{% endblock %}
+</body>
+</html>
